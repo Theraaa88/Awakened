@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Begin Your Journey - Awakened</title>
+    <script src="tailwind.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brass': '#B8860B',
+                        'copper': '#B87333',
+                        'steam': '#E8E8E8',
+                        'cog-brown': '#8B4513',
+                        'vintage-paper': '#F5E6D3',
+                        'industrial-dark': '#1A1A1A'
+                    },
+                    fontFamily: {
+                        'cinzel': ['Cinzel', 'serif'],
+                        'crimson': ['Crimson Text', 'serif']
+                    },
+                    backgroundImage: {
+                        'brass-texture': "linear-gradient(45deg, #B8860B 25%, transparent 25%), linear-gradient(-45deg, #B8860B 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #B8860B 75%), linear-gradient(-45deg, transparent 75%, #B8860B 75%)"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #1A1A1A;
+            color: #E8E8E8;
+            font-family: 'Crimson Text', serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* brass grid overlay */
+        .brass-overlay::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(45deg, #B8860B33 25%, transparent 25%), 
+                linear-gradient(-45deg, #B8860B33 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #B8860B33 75%), 
+                linear-gradient(-45deg, transparent 75%, #B8860B33 75%);
+            background-size: 40px 40px;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .info-box {
+            background: linear-gradient(to bottom right, #2a2a2a, #3a2a1a);
+            border: 2px solid #B8860B;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 0 20px #B8860B55;
+        }
+
+        .btn-return {
+            border: 2px solid #B8860B;
+            color: #B8860B;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-return:hover {
+            background-color: #B8860B;
+            color: #1A1A1A;
+        }
+    </style>
+</head>
+<body class="brass-overlay flex flex-col items-center justify-center min-h-screen px-4 text-center">
+    <div class="info-box max-w-lg relative z-10">
+        <h1 class="text-3xl font-cinzel text-brass mb-4">Your Journey Begins</h1>
+        <p class="text-steam mb-6">
+            The gears turn once more. You find yourself in a world between dreams and steel —
+            where every choice echoes across the Aether.
+        </p>
+        <button onclick="window.location.href='index.html'" class="btn-return font-cinzel">Return to Main Page</button>
+    </div>
+
+    <div class="info-box max-w-lg mt-8 relative z-10">
+        <h2 class="text-2xl font-cinzel text-brass mb-3">Incoming Transmission</h2>
+        <p class="text-steam">“Unit 09 detected in Sector C. Awaiting orders from the Awakened.”</p>
+    </div>
+
+    <!-- background particle effect -->
+    <canvas id="particles" class="absolute inset-0 z-0"></canvas>
+
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.speedX = Math.random() * 0.5 - 0.25;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#B8860B';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>
