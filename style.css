@@ -1,0 +1,218 @@
+   /* Gaya dan animasi (dari versi awal) */
+    .gear-rotate {
+      animation: rotate 20s linear infinite;
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .steam-effect {
+      background: linear-gradient(180deg, rgba(232,232,232,0.8) 0%, rgba(232,232,232,0) 100%);
+    }
+    .parchment-bg {
+      background-color: #F5E6D3;
+      background-image:
+        radial-gradient(#8B4513 1px, transparent 1px),
+        radial-gradient(#8B4513 1px, transparent 1px);
+      background-size: 20px 20px;
+      background-position: 0 0, 10px 10px;
+    }
+    .neon-title {
+      color: #8A2BE2;
+      text-shadow:
+        0 0 5px #8A2BE2,
+        0 0 10px #8A2BE2,
+        0 0 20px #B57EFF,
+        0 0 40px #B57EFF;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .neon-text {
+      color: #E0CCFF;
+      text-shadow:
+        0 0 4px #A26BFF,
+        0 0 8px #B57EFF;
+    }
+
+    .neon-time {
+      color: #FFD6A5;
+      text-shadow:
+        0 0 4px #FFB347,
+        0 0 8px #FF8C00;
+    }
+
+    .border-l-4.border-brass:hover .neon-title {
+      text-shadow:
+        0 0 10px #B57EFF,
+        0 0 20px #C896FF,
+        0 0 40px #D6AFFF;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap');
+    .glitch-text {
+      display: inline-block;
+      position: relative;
+      color: #ff1c1c;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-shadow:
+        0 0 5px #ff0000,
+        0 0 10px #ff0000,
+        0 0 20px #ff1c1c,
+        0 0 40px #ff0000,
+        2px 2px 5px rgba(0, 0, 0, 0.8);
+      animation: flicker 2s infinite;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .glitch-text div {
+      margin: 5px 0;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        transform: translate(0);
+      }
+      20%, 24%, 55% {
+        opacity: 0.8;
+        transform: translate(-1px, 1px);
+      }
+      22% {
+        opacity: 0.6;
+        transform: translate(1px, -2px);
+      }
+      57% {
+        opacity: 0.7;
+        transform: translate(-2px, 2px);
+      }
+    }
+
+    /* efek duplikat glitch (before/after) */
+    .glitch-text::before,
+    .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      width: 100%;
+      color: #ff0000;
+      clip: rect(0, 900px, 0, 0);
+    }
+    .glitch-text::before {
+      left: 2px;
+      text-shadow: -2px 0 cyan;
+      animation: glitch-anim-1 2s infinite linear alternate-reverse;
+    }
+    .glitch-text::after {
+      left: -2px;
+      text-shadow: -2px 0 magenta;
+      animation: glitch-anim-2 3s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim-1 {
+      0% { clip: rect(0, 9999px, 0, 0); }
+      5% { clip: rect(5px, 9999px, 15px, 0); }
+      10% { clip: rect(15px, 9999px, 20px, 0); }
+      15% { clip: rect(25px, 9999px, 30px, 0); }
+      20% { clip: rect(10px, 9999px, 25px, 0); }
+      100% { clip: rect(0, 9999px, 0, 0); }
+    }
+
+    @keyframes glitch-anim-2 {
+      0% { clip: rect(10px, 9999px, 25px, 0); }
+      5% { clip: rect(0, 9999px, 5px, 0); }
+      10% { clip: rect(25px, 9999px, 35px, 0); }
+      15% { clip: rect(10px, 9999px, 20px, 0); }
+      20% { clip: rect(5px, 9999px, 15px, 0); }
+      100% { clip: rect(10px, 9999px, 25px, 0); }
+    }
+
+    /* tambahan styling visual */
+    .shadow-steam { box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+    }
+
+/* =============================
+   Enhanced Steampunk Dropdown Animation
+   ============================= */
+
+@keyframes dropdownOpen {
+  0% {
+    transform: translateY(-20px) scaleY(0.95);
+    opacity: 0;
+    filter: blur(8px);
+  }
+  60% {
+    transform: translateY(5px) scaleY(1.02);
+    opacity: 0.8;
+    filter: blur(2px);
+  }
+  100% {
+    transform: translateY(0) scaleY(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes dropdownClose {
+  0% {
+    transform: translateY(0) scaleY(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  40% {
+    transform: translateY(-10px) scaleY(0.98);
+    opacity: 0.6;
+    filter: blur(2px);
+  }
+  100% {
+    transform: translateY(-20px) scaleY(0.9);
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+/* Apply animations */
+.menu-open {
+  animation: dropdownOpen 0.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+}
+
+.menu-close {
+  animation: dropdownClose 0.4s ease forwards;
+}
+
+/* Optional: Fade-in delay for each menu item */
+.nav-link {
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: menuItemFade 0.4s ease forwards;
+}
+
+@keyframes menuItemFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger effect */
+.nav-link:nth-child(1) { animation-delay: 0.1s; }
+.nav-link:nth-child(2) { animation-delay: 0.2s; }
+.nav-link:nth-child(3) { animation-delay: 0.3s; }
+.nav-link:nth-child(4) { animation-delay: 0.4s; }
+.nav-link:nth-child(5) { animation-delay: 0.5s; }
+
+.menu-open::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #B8860B, transparent);
+  animation: shimmer 0.8s ease-out forwards;
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-100%); opacity: 0.5; }
+  to { transform: translateX(100%); opacity: 0; }
+}
